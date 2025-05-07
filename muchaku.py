@@ -1,0 +1,1 @@
+print("muchaku.saikyo")
