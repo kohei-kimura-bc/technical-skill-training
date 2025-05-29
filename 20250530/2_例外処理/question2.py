@@ -4,6 +4,8 @@
 ユーザに身長と体重を入力させた後、BMIを計算するプログラムを作成してください
 """
 
+# import sys
+
 
 def get_number(message="数字を入力してください\n"):
     while True:
@@ -11,10 +13,14 @@ def get_number(message="数字を入力してください\n"):
             num = int(input(message))
         except ValueError:
             print("入力された値は数字ではありません")
+        # except KeyboardInterrupt:
+        #     print("入力が中断されました")
+        #     sys.exit()
         else:
             return num
 
 
 height = get_number("身長(cm)を入力してください\n")
 weight = get_number("体重(kg)を入力してください\n")
-print(weight / (height / 100) ** 2)
+bmi = weight / (height / 100) ** 2
+print(bmi)
