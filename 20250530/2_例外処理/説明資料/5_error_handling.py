@@ -3,8 +3,8 @@ try:
     result = 10 / num
 except ValueError:
     print("数値を入力してください")
-# except ZeroDivisionError:
-#     print("0で割ることはできません")
+except ZeroDivisionError:
+    print("0で割ることはできません")
 else:
     print(result)
 finally:

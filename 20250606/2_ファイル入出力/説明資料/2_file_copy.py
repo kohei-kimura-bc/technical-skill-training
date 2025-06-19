@@ -24,19 +24,19 @@ print(new_file_name)
 new_file_name = base_directory / new_file_name
 print(new_file_name)
 
-# ファイルのコピー
+# # ファイルのコピー
 shutil.copy(basic_py, new_file_name)
 
 # ファイルの削除
-new_file_name.unlink()
+# new_file_name.unlink()
 
 # backupディレクトリを作成
 backup_dir = base_directory / "backup"
 backup_dir.mkdir(exist_ok=True)
 
 # # backupにファイルを移動
-# shutil.move(new_file_name, backup_dir)
+shutil.move(new_file_name, backup_dir)
 
-# コピーしてから、コピー元のファイルを削除（moveと同じ挙動になるがエラーにならない）
-shutil.copy(new_file_name, backup_dir)
-new_file_name.unlink()
+# # コピーしてから、コピー元のファイルを削除（moveと同じ挙動になるがエラーにならない）
+# shutil.copy(new_file_name, backup_dir)
+# new_file_name.unlink()
