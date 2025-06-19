@@ -1,1 +1,2 @@
-hogehoge
+hello, world!
+My name is kohei!

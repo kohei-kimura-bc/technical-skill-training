@@ -1,1 +1,1 @@
-print("hogeaaa")
+aaaaaaaaaaa

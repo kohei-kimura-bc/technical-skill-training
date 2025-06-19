@@ -1,6 +1,8 @@
 def sample_function(**kwargs):
     print(kwargs)
     for k in kwargs:
+        print(k)
+        print(kwargs[k])
         if k == "name":
             print("name is", kwargs[k])
 

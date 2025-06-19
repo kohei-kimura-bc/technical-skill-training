@@ -1,6 +1,6 @@
 from pathlib import Path
 
-# カレントファイルが格納されているディレクトリのパスを取得
+# j今のファイルが格納されているディレクトリのパスを取得
 base_directory = Path(__file__).parent
 
 print(__file__)

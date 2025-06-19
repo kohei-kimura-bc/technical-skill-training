@@ -1,8 +1,8 @@
 def sum_func(*args):
-    print(args)  # (1,2,3,4,5)
+    print(*args)  # (1,2,3,4,5)
     sum = 0
-    for i in args:
-        sum += i
+    for n in args:
+        sum += n
     return sum
 
 
