@@ -1,0 +1,8 @@
+# IISインストール
+Install-WindowsFeature web-server
+
+# HTMLファイル作成
+New-Item -ItemType file -Path C:\inetpub\wwwroot\index.html -Value "<h1>$($env:computername)</h1>"
+
+# HTMLファイルを開く
+notepad C:\inetpub\wwwroot\index.html
