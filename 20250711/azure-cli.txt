@@ -1,0 +1,84 @@
+# 変数NAMEに"Kimura"を設定
+export NAME="Kimura"
+
+# パブリックIPアドレスを作成
+az network public-ip create \
+  --resource-group technical-skill-training \
+  --name ${NAME}PublicIP
+
+# ネットワークセキュリティグループ(NSG)を作成
+az network nsg create \
+  --resource-group technical-skill-training \
+  --name ${NAME}NSG
+
+# NSGにRDP(3389)許可ルールを追加
+az network nsg rule create \
+  --resource-group technical-skill-training \
+  --nsg-name ${NAME}NSG \
+  --name AllowRDP \
+  --protocol tcp \
+  --priority 1000 \
+  --destination-port-range 3389 \
+  --access allow
+
+# NIC(ネットワークインターフェース)を作成し、パブリックIPとNSGを関連付け
+az network nic create \
+  --resource-group technical-skill-training \
+  --name ${NAME}NIC \
+  --vnet-name techSkillVnet \
+  --subnet techSkillSubnet \
+  --network-security-group ${NAME}NSG \
+  --public-ip-address ${NAME}PublicIP
+
+# Windows仮想マシンを作成し、NICを割り当て
+az vm create \
+  --resource-group technical-skill-training \
+  --name ${NAME}VM \
+  --nics ${NAME}NIC \
+  --image Win2022Datacenter \
+  --size Standard_B2ms \
+  --admin-username azureuser \
+  --admin-password <StrongPassword123!> \
+  --os-disk-size-gb 128 \
+  --storage-sku Premium_LRS \
+  --computer-name ${NAME}-host \
+  --authentication-type password
+
+# 仮想マシンのパブリックIPアドレスを取得
+az vm show \
+  --resource-group technical-skill-training \
+  --name ${NAME}VM \
+  --show-details \
+  --query [publicIps] \
+  --output tsv
+
+# リソースグループ内の${NAME}が含まれるリソースを一覧表示
+az resource list --resource-group technical-skill-training -o table | grep ${NAME}
+
+# 仮想マシンを削除
+az vm delete \
+  --resource-group technical-skill-training \
+  --name ${NAME}VM --yes
+
+# NICを削除
+az network nic delete \
+  --resource-group technical-skill-training \
+  --name ${NAME}NIC
+
+# NSGを削除
+az network nsg delete \
+  --resource-group technical-skill-training \
+  --name ${NAME}NSG
+
+# パブリックIPアドレスを削除
+az network public-ip delete \
+  --resource-group technical-skill-training \
+  --name ${NAME}PublicIP
+
+# OSディスクを削除
+az disk delete \
+  --resource-group technical-skill-training \
+  --name ${NAME}VM_OsDisk --yes
+
+# リソースグループ内の${NAME}が含まれるリソースを再度一覧表示
+az resource list --resource-group technical-skill-training -o table | grep ${NAME}
